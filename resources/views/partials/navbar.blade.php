@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
       <a class="navbar-brand" href="{{ route('home') }}">
         {{ __('messages.app_name') }}
