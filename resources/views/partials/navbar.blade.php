@@ -59,8 +59,8 @@
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
               <li>
                 <a class="dropdown-item"
-                   href="{{ LaravelLocalization::localizeURL(route('profile')) }}">
-                  {{ __('messages.profile') }}
+                   href="{{ LaravelLocalization::localizeURL(route('dashboard')) }}">
+                  {{ __('messages.dashboard') }}
                 </a>
               </li>
               <li><hr class="dropdown-divider"></li>

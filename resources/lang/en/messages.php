@@ -35,4 +35,31 @@ return [
     'password_incorrect' => 'Incorrect password',
     'home' => 'Home',
     'all_rights_reserved' => 'All rights reserved.',
+
+    'links' => [
+        'create'    => 'Create Link',
+        'edit'      => 'Edit Link',
+        'details'   => 'Link Details',
+        'original'  => 'Original URL',
+        'short_url' => 'Short URL',
+        'expires_at'=> 'Expires At',
+        'expires_help' => 'Optional: when this link should expire',
+        'password'  => 'Password (optional)',
+        'password_help'   => 'Protect this link with a password',
+        'password_leave_blank' => 'Leave blank to keep current password',
+        'protected' => 'This link is password protected',
+        'enter_password' => 'Please enter the password to proceed',
+        'clicks_history' => 'Click History',
+        'no_clicks' => 'No clicks recorded yet',
+        'update'    => 'Update',
+    ],
+
+    'clicks' => [
+        'at'       => 'Time',
+        'ip'       => 'IP Address',
+        'referrer' => 'Referrer',
+    ],
+    'back'    => 'Back',
+    'cancel'  => 'Cancel',
+    'submit'  => 'Submit',
 ];
