@@ -35,6 +35,8 @@
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <section class="features py-5 bg-light">
   <div class="container">
     <div class="row g-4 text-center">
@@ -69,6 +71,8 @@
   </div>
 </section>
 
+<div class="section-divider"></div>
+
 <section class="how-it-works py-5">
   <div class="container">
     <h2 class="text-center mb-4">{{ __('home.how_title') }}</h2>
@@ -91,6 +95,8 @@
     </div>
   </div>
 </section>
+
+<div class="section-divider"></div>
 
 <section class="testimonials bg-light py-5">
   <div class="container">
@@ -116,7 +122,7 @@
             <span class="carousel-control-prev-icon"></span>
           </button>
           <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon text-dark"></span>
+            <span class="carousel-control-next-icon"></span>
           </button>
         </div>
       </div>

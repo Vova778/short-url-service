@@ -1,78 +1,155 @@
 @import "../variables";
 
+// ----- Глобальні розділювачі -----
+.section-divider {
+  width: 100%;
+  height: 2px;
+  background: rgba($dark, 0.1);
+  margin: 0;
+}
+
+// ----- HERO -----
 .home-hero {
-    padding: 5rem 0;
-    background: $primary;
+  padding: 5rem 0;
+//   background: $primary !important;
+  color: $light;
+  text-align: center;
+
+  h1.display-4 {
     color: $light;
-    text-align: center;
+    margin-bottom: 1rem;
+  }
+  p.lead {
+    color: lighten($light, 20%);
+    margin-bottom: 2rem;
+  }
 
-    h1.display-4 {
-        color: $light;
-        margin-bottom: 1rem;
+  #shorten-form {
+    .form-control {
+      border: 2px solid $secondary;
+      &:focus {
+        box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
+        border-color: $secondary;
+      }
     }
-    p.lead {
-        color: lighten($light, 20%);
-        margin-bottom: 2rem;
+    .btn {
+      background-color: $secondary;
+      border-color: $secondary;
+      &:hover {
+        background-color: darken($secondary, 5%);
+      }
     }
+  }
 
-    #shorten-form {
-        .form-control {
-            border: 2px solid $secondary;
-            &:focus {
-                box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
-                border-color: $secondary;
-            }
-        }
-        .btn {
-            background-color: $secondary;
-            border-color: $secondary;
-            &:hover {
-                background-color: darken($secondary, 5%);
-            }
-        }
+  #shortenedResult .card {
+    border-top: 0.25rem solid $secondary;
+    .card-title {
+      color: $dark;
+      margin-bottom: 0.5rem;
     }
-
-    #shortenedResult .card {
-        border-top: 0.25rem solid $secondary;
-        .card-title {
-            color: $dark;
-            margin-bottom: 0.5rem;
-        }
-        a#shortUrl {
-            color: $info;
-            font-weight: bold;
-            &:hover {
-                color: darken($info, 10%);
-            }
-        }
+    a#shortUrl {
+      color: $info;
+      font-weight: bold;
+      &:hover {
+        color: darken($info, 10%);
+      }
     }
+  }
 }
 
 .features {
-    padding: 4rem 0;
-    background: $light;
+  padding: 4rem 0;
+  background: $light;
 
-    .card {
-        border: none;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        &:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0.5rem 1rem rgba($dark, 0.15);
-        }
-
-        .card-body {
-            i {
-                font-size: 3rem;
-                color: $info;
-                margin-bottom: 1rem;
-            }
-            h5.card-title {
-                color: $dark;
-                margin-bottom: 0.75rem;
-            }
-            p.card-text {
-                color: $secondary;
-            }
-        }
+  .card {
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0.5rem 1rem rgba($dark, 0.15);
     }
+
+    .card-body {
+      i {
+        font-size: 3rem;
+        color: $info;
+        margin-bottom: 1rem;
+      }
+      h5.card-title {
+        color: $dark;
+        margin-bottom: 0.75rem;
+      }
+      p.card-text {
+        color: $secondary;
+      }
+    }
+  }
+}
+
+.how-it-works {
+  background: #fff;
+  padding: 4rem 0;
+
+  h2 {
+    color: $dark;
+  }
+  i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    color: $secondary;
+  }
+}
+
+.testimonials {
+  background: $light;
+  padding: 4rem 0;
+
+  h2 {
+    color: $dark;
+  }
+
+  .carousel {
+    position: relative;
+
+    .carousel-inner {
+      .carousel-item blockquote {
+        p {
+          font-size: 1.25rem;
+          color: $dark;
+        }
+        footer {
+          color: $secondary;
+        }
+      }
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+      width: 4rem;
+      height: 4rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba($dark, 0.1);
+      border-radius: 50%;
+      transition: background 0.2s;
+
+      &:hover {
+        background: rgba($dark, 0.2);
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        filter: invert(30%) sepia(100%) saturate(500%) hue-rotate(180deg) brightness(90%);
+      }
+    }
+
+    .carousel-control-prev {
+      left: -2rem;
+    }
+    .carousel-control-next {
+      right: -2rem;
+    }
+  }
 }
