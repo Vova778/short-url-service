@@ -4,12 +4,17 @@
 // Variables
 @import "variables";
 
-// Bootstrap
 @import "bootstrap/scss/bootstrap";
 
 @import "navbar";
-
+@import "cards"; 
 
 body {
-    background-color: $body-bg !important;
+    background-color: $light-bg;
+}
+
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
 }

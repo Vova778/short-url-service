@@ -1,0 +1,51 @@
+.card-custom {
+    position: relative;
+    border: none;
+    border-radius: $card-border-radius;
+    box-shadow: $card-shadow;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $card-hover-shadow;
+    }
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 20px;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(
+            180deg,
+            #4f46e5,
+            #3b82f6
+        );
+    }
+
+    .card-header {
+        background: linear-gradient(90deg, #4f46e5, #3b82f6);
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 1rem 1.5rem;
+    }
+
+    .card-body {
+        padding: 1.75rem 1.5rem;
+        background-color: #fff;
+    }
+
+    .btn-primary {
+        background-color: #3b82f6;
+        border-color: #3b82f6;
+        transition: background 0.2s;
+        &:hover {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+    }
+}

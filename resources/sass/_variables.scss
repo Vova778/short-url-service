@@ -7,7 +7,7 @@ $success: #28a745;
 $info: #17a2b8;
 $warning: #ffc107;
 $danger: #dc3545;
-$light: #f1f3f5;
+$light: #f1f3ff;
 $dark: #212529;
 
 $font-family-sans-serif: "Nunito", sans-serif;
@@ -25,3 +25,14 @@ $navbar-link-active: #ffdd57;
 
 $navbar-dropdown-bg: #ffffff;
 $navbar-dropdown-item-hover-bg: darken(#ffffff, 5%);
+
+$light-bg: #f4f6f8 !default; // головний фон сторінок
+$nav-bg: #ffffff !default; // фон навбару
+$nav-border: #dee2e6 !default; // ніжна лінія під навбаром
+$primary-600: #0d6efd !default; // bootstrap-primary
+$primary-700: #0b5ed7 !default; // hover
+$gray-700: #495057 !default; // основний текст
+
+$card-border-radius: 1rem;
+$card-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.08);
+$card-hover-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.12);

@@ -33,4 +33,6 @@ return [
     'link_updated' => 'Link updated',
     'link_deleted' => 'Link deleted',
     'password_incorrect' => 'Incorrect password',
+    'home' => 'Home',
+    'all_rights_reserved' => 'All rights reserved.',
 ];
