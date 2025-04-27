@@ -1,4 +1,78 @@
-#home-result a {
-    font-weight: bold;
-    word-break: break-all;
+@import "../variables";
+
+.home-hero {
+    padding: 5rem 0;
+    background: $primary;
+    color: $light;
+    text-align: center;
+
+    h1.display-4 {
+        color: $light;
+        margin-bottom: 1rem;
+    }
+    p.lead {
+        color: lighten($light, 20%);
+        margin-bottom: 2rem;
+    }
+
+    #shorten-form {
+        .form-control {
+            border: 2px solid $secondary;
+            &:focus {
+                box-shadow: 0 0 0 0.2rem rgba($secondary, 0.25);
+                border-color: $secondary;
+            }
+        }
+        .btn {
+            background-color: $secondary;
+            border-color: $secondary;
+            &:hover {
+                background-color: darken($secondary, 5%);
+            }
+        }
+    }
+
+    #shortenedResult .card {
+        border-top: 0.25rem solid $secondary;
+        .card-title {
+            color: $dark;
+            margin-bottom: 0.5rem;
+        }
+        a#shortUrl {
+            color: $info;
+            font-weight: bold;
+            &:hover {
+                color: darken($info, 10%);
+            }
+        }
+    }
+}
+
+.features {
+    padding: 4rem 0;
+    background: $light;
+
+    .card {
+        border: none;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0.5rem 1rem rgba($dark, 0.15);
+        }
+
+        .card-body {
+            i {
+                font-size: 3rem;
+                color: $info;
+                margin-bottom: 1rem;
+            }
+            h5.card-title {
+                color: $dark;
+                margin-bottom: 0.75rem;
+            }
+            p.card-text {
+                color: $secondary;
+            }
+        }
+    }
 }
