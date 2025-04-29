@@ -16,31 +16,6 @@ class ShortLinkController extends Controller
         return view('links.create');
     }
 
-    public function store(Request $request)
-    {
-        $data = $request->validate([
-            'original_url' => 'required|url|max:2048',
-            'expires_at' => 'nullable|date|after:now',
-            'password' => 'nullable|string|min:6|max:60',
-        ]);
-
-        do {
-            $code = Str::random(6);
-        } while (Link::where('short_code', $code)->exists());
-
-        $data['short_code'] = $code;
-        $data['user_id'] = $request->user()->id;
-        if ($data['password']) {
-            $data['password'] = bcrypt($data['password']);
-        }
-
-        $link = Link::create($data);
-
-        return redirect()
-            ->route('links.show', $link)
-            ->with('status', __('messages.link_created'));
-    }
-
     public function show(Link $link)
     {
         $this->authorize('view', $link);
