@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'safebrowsing' => [
+        'key' => env('SAFE_BROWSING_KEY'),
+    ],
+
 ];

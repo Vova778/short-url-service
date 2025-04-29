@@ -1,6 +1,6 @@
 <?php
 return [
-    'app_name' => 'ShortLink',
+    'app_name' => 'ShortLinkService',
     'login' => 'Увійти',
     'register' => 'Реєстрація',
     'dashboard' => 'Кабінет',
