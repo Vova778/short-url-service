@@ -25,10 +25,12 @@ class HomeController extends Controller
         ]);
 
         if (!$this->isSafeUrl($data['original_url'])) {
-            return response()->json(['message' => __('home.error_unsafe_url')], 422);
+            return response()->json([
+                'message' => __('home.error_unsafe_url')
+            ], 422);
         }
 
-        $code = $this->chooseShortCode($data['custom_code'] ?? null);
+        $code = Link::generateUniqueCode($data['custom_code'] ?? null);
 
         $link = Link::create([
             'original_url' => $data['original_url'],

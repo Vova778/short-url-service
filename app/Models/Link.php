@@ -10,7 +10,11 @@ class Link extends Model
     use HasFactory;
 
     protected $fillable = [
-        'original_url','short_code','user_id','password','expires_at'
+        'original_url',
+        'short_code',
+        'user_id',
+        'password',
+        'expires_at'
     ];
 
     protected $casts = [
@@ -20,5 +24,48 @@ class Link extends Model
     public function clicks()
     {
         return $this->hasMany(Click::class);
+    }
+
+    /**
+     * Згенерувати унікальний короткий код (з можливістю кастомного).
+     *
+     * @param  string|null  $custom
+     * @return string
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public static function generateUniqueCode(?string $custom = null): string
+    {
+        $cfg = config('links.generator');
+        $blacklist = config('links.blacklist', []);
+
+        $alphabet = implode('abcdefghijklmnopqrstuvwxyz', array_filter([
+            $cfg['uppercase'] ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : null,
+            $cfg['digits'] ? '0123456789' : null,
+            $cfg['symbols'] ?? null,
+        ]));
+
+        if ($custom) {
+            if (in_array($custom, $blacklist, true)
+                || static::where('short_code', $custom)->exists()
+            ) {
+                abort(422, __('home.error_code_taken'));
+            }
+            return $custom;
+        }
+
+        $length = (int) $cfg['length'];
+
+        do {
+            $code = '';
+            for ($i = 0; $i < $length; $i++) {
+                $code .= $alphabet[random_int(0, strlen($alphabet) - 1)];
+            }
+        } while (
+            in_array($code, $blacklist, true)
+            || static::where('short_code', $code)->exists()
+        );
+
+        return $code;
     }
 }
