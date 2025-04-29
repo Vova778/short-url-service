@@ -42,6 +42,7 @@ class HomeController extends Controller
             'short_code' => $code,
             'short_url' => route('links.redirect', $code),
             'expires_at' => $link->expires_at,
+            'link_id' => $link->id,
         ]);
     }
 
