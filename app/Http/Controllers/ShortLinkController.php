@@ -11,15 +11,6 @@ class ShortLinkController extends Controller
 {
     use RecordsClicks;
 
-    public function index(Request $request)
-    {
-        $links = Link::where('user_id', $request->user()->id)
-            ->latest()
-            ->paginate(10);
-
-        return view('dashboard.index', compact('links'));
-    }
-
     public function create()
     {
         return view('links.create');

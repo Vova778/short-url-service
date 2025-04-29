@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\LinkRedirectController;
@@ -22,6 +23,7 @@ Route::group([
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [ShortLinkController::class, 'index'])->name('dashboard');
         Route::resource('links', ShortLinkController::class)->except('index');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
     Route::post('/{code}/unlock', [LinkRedirectController::class, 'unlock'])

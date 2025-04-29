@@ -1,45 +1,57 @@
+{{-- resources/views/dashboard/index.blade.php --}}
 @extends('layouts.app')
 
-@section('content')
-    <h1>{{ __('messages.dashboard.title') }}</h1>
-    <div class="mb-3">
-        <a href="{{ route('links.create') }}" class="btn btn-success">
-            {{ __('messages.links.create') }}
-        </a>
-    </div>
+@push('styles')
+    @vite('resources/sass/pages/dashboard.scss')
+@endpush
 
-    <table id="links-table" class="table table-striped">
-        <thead>
-            <tr>
-                <th>{{ __('messages.links.code') }}</th>
-                <th>{{ __('messages.links.original') }}</th>
-                <th>{{ __('messages.links.clicks') }}</th>
-                <th>{{ __('messages.actions') }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($links as $link)
-                <tr>
-                    <td>
-                        <a href="{{ route('links.redirect', $link->short_code) }}" target="_blank">{{ $link->short_code }}</a>
-                    </td>
-                    <td>{{ Str::limit($link->original_url, 50) }}</td>
-                    <td>{{ $link->clicks()->count() }}</td>
-                    <td>
-                        <a href="{{ route('links.show', $link) }}" class="btn btn-sm btn-info">{{ __('messages.view') }}</a>
-                        <a href="{{ route('links.edit', $link) }}"
-                            class="btn btn-sm btn-warning">{{ __('messages.edit') }}</a>
-                        <form action="{{ route('links.destroy', $link) }}" method="POST" class="d-inline">
-                            @csrf @method('DELETE')
-                            <button class="btn btn-sm btn-danger">{{ __('messages.delete') }}</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+@section('content')
+<div class="container py-4">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="mb-0">{{ __('Dashboard') }}</h1>
+    <a href="{{ route('links.create') }}" class="btn btn-outline-primary">
+      <i class="fas fa-plus"></i> {{ __('New Short Link') }}
+    </a>
+  </div>
+
+  <div class="row mb-5 stats-overview">
+    @foreach([
+      ['color'=>'primary','icon'=>'link','title'=>__('Total Links'),'value'=>$totalLinks],
+      ['color'=>'success','icon'=>'mouse-pointer','title'=>__('All Clicks'),'value'=>$totalClicks],
+      ['color'=>'warning','icon'=>'calendar-day','title'=>__('Clicks Today'),'value'=>$todayClicks],
+    ] as $stat)
+      <div class="col-md-4 mb-3">
+        <div class="card text-white bg-{{ $stat['color'] }} h-100 stat-card">
+          <div class="card-body d-flex align-items-center">
+            <i class="fas fa-{{ $stat['icon'] }} fa-3x me-3"></i>
+            <div>
+              <h5 class="card-title mb-1">{{ $stat['title'] }}</h5>
+              <p class="card-text fs-2">{{ $stat['value'] }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    @endforeach
+  </div>
+
+  <div class="row mb-3">
+    <div class="col-auto">
+      <input type="text" id="dateRange" class="form-control form-control-sm" placeholder="{{ __('Last 7 days') }}">
+    </div>
+    <div class="col">
+      <button id="applyFilter" class="btn btn-sm btn-secondary">{{ __('Apply') }}</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      @include('dashboard.partials.links-table')
+    </div>
+  </div>
+</div>
 @endsection
 
 @push('scripts')
-    @vite(['resources/js/pages/datatables.js'])
+    @vite('resources/js/pages/dashboard.js')
 @endpush

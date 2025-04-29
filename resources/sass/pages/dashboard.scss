@@ -1,0 +1,41 @@
+// resources/sass/pages/dashboard.scss
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+.stats-overview {
+  .stat-card {
+    transition: transform .2s, box-shadow .2s;
+    border-radius: .75rem;
+
+    &:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0,0,0,.12);
+    }
+
+    i {
+      opacity: .85;
+    }
+
+    .card-text {
+      font-weight: 700;
+    }
+  }
+}
+
+// Фільтр діапазону дат
+#dateRange {
+  max-width: 200px;
+}
+
+// Таблиця
+#linksTable {
+  th, td {
+    vertical-align: middle;
+  }
+
+  .btn {
+    width: 2.2rem;
+    height: 2.2rem;
+    padding: 0;
+    font-size: .95rem;
+  }
+}

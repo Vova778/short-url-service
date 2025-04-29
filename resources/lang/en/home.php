@@ -31,4 +31,5 @@ return [
     'testimonial2_author' => '— Maria Garcia',
 
     'copy' => 'Copy',
+    'error_unsafe_url' => 'Dangerous link!',
 ];
