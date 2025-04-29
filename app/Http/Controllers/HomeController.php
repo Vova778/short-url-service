@@ -24,7 +24,7 @@ class HomeController extends Controller
             'expires_at' => 'nullable|date|after:now',
         ]);
 
-        if (!$this->isSafeUrl($data['original_url'])) {
+        if ($this->isSafeUrl($data['original_url'])) {
             return response()->json([
                 'message' => __('home.error_unsafe_url')
             ], 422);
@@ -46,22 +46,6 @@ class HomeController extends Controller
             'expires_at' => $link->expires_at,
             'link_id' => $link->id,
         ]);
-    }
-
-    protected function chooseShortCode(?string $custom): string
-    {
-        if ($custom !== null) {
-            if (Link::where('short_code', $custom)->exists()) {
-                abort(422, __('home.error_code_taken'));
-            }
-            return $custom;
-        }
-
-        do {
-            $code = Str::random(6);
-        } while (Link::where('short_code', $code)->exists());
-
-        return $code;
     }
 
     protected function isSafeUrl(string $url): bool

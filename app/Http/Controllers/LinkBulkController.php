@@ -30,7 +30,6 @@ class LinkBulkController extends Controller
             'total' => count($pairs),
             'invalid' => $invalidCount,
         ]);
-
     }
 
     protected function parseBulkFile($file): array
@@ -41,9 +40,8 @@ class LinkBulkController extends Controller
 
         foreach ($xlsx->rows() as $row) {
             $orig = trim($row[0] ?? '');
-            if ($orig === '') {
-                continue;
-            }
+            if ($orig === '') continue;
+
             if (filter_var($orig, FILTER_VALIDATE_URL)) {
                 try {
                     $code = Link::generateUniqueCode();

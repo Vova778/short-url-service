@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Link;
-use Illuminate\Support\Str;
 use App\Http\Controllers\Traits\RecordsClicks;
 
 class ShortLinkController extends Controller

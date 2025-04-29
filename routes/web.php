@@ -17,6 +17,7 @@ Route::group([
     ],
 ], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index']);
     Route::post('/shorten', [HomeController::class, 'shorten'])->name('home.shorten');
 
     Auth::routes();
