@@ -6,7 +6,7 @@ return [
         'length' => env('LINK_CODE_LENGTH', 6),
         'uppercase' => env('LINK_CODE_UPPERCASE', false),
         'lowercase' => env('LINK_CODE_LOWERCASE', true),
-        'digits' => env('LINK_CODE_DIGITS', true),
+        'digits' => env('LINK_CODE_DIGITS', false),
         'symbols' => env('LINK_CODE_SYMBOLS', ''),
     ],
 

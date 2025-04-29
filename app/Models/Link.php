@@ -27,7 +27,6 @@ class Link extends Model
     }
 
     /**
-     * Згенерувати унікальний короткий код (з можливістю кастомного).
      *
      * @param  string|null  $custom
      * @return string
@@ -40,6 +39,7 @@ class Link extends Model
         $blacklist = config('links.blacklist', []);
 
         $alphabet = implode('abcdefghijklmnopqrstuvwxyz', array_filter([
+            $cfg['lowercase'] ? 'abcdefghijklmnopqrstuvwxyz' : null,
             $cfg['uppercase'] ? 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' : null,
             $cfg['digits'] ? '0123456789' : null,
             $cfg['symbols'] ?? null,

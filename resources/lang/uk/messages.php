@@ -59,4 +59,5 @@ return [
     ],
     'back' => 'Назад',
     'cancel' => 'Скасувати',
+    'bulk' => 'Bilk Shortnening'
 ];
