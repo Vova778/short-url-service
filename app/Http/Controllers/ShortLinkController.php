@@ -53,7 +53,7 @@ class ShortLinkController extends Controller
     public function show(Link $link)
     {
         $this->authorize('view', $link);
-        $clicks = $link->clicks()->latest()->get();
+        $clicks = $link->clicks()->latest('clicked_at')->get();
 
         return view('links.show', compact('link', 'clicks'));
     }

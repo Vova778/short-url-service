@@ -29,4 +29,6 @@ return [
     'testimonial1_author' => '— Alex Johnson',
     'testimonial2_text' => 'I love the detailed stats. It helps me optimize my campaigns.',
     'testimonial2_author' => '— Maria Garcia',
+
+    'copy' => 'Copy',
 ];

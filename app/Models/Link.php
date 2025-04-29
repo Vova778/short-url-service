@@ -13,7 +13,9 @@ class Link extends Model
         'original_url','short_code','user_id','password','expires_at'
     ];
 
-    protected $dates = ['expires_at'];
+    protected $casts = [
+        'expires_at' => 'datetime',
+    ];
 
     public function clicks()
     {

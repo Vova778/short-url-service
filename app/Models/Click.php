@@ -12,6 +12,10 @@ class Click extends Model
         'link_id','clicked_at','referrer','ip_address'
     ];
 
+    protected $casts = [
+        'clicked_at' => 'datetime',
+    ];
+
     public function link()
     {
         return $this->belongsTo(Link::class);

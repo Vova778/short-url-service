@@ -6,13 +6,13 @@
 
 @section('content')
 
-<section class="home-hero text-center text-white py-5" style="background: linear-gradient(135deg, #20c997 0%, #fd7e14 100%);">
+<section class="home-hero text-center text-white rounded-top-5 py-5" style="background: linear-gradient(135deg, #20c997 0%, #fd7e14 100%);">
   <div class="container">
     <h1 class="display-4 fw-bold">{{ __('home.hero_title') }}</h1>
     <p class="lead mb-4">{{ __('home.hero_subtitle') }}</p>
 
-    <form id="shorten-form" class="row g-2 justify-content-center">
-      <div class="col-md-8">
+    <form id="shorten-form" action="{{ route('home.shorten') }}" method="POST" class="row g-2 justify-content-center">
+      <div class="col-md-6">
         <input type="url"
                class="form-control form-control-lg"
                id="originalUrl"
@@ -25,13 +25,20 @@
     </form>
 
     <div id="shortenedResult" class="mt-5 d-none">
-      <div class="card border-0 shadow-lg mx-auto" style="max-width: 600px;">
-        <div class="card-body text-center">
-          <h5 class="card-title mb-3">{{ __('home.result_title') }}</h5>
-          <a href="#" id="shortUrl" target="_blank" class="h4 text-warning text-decoration-none"></a>
+        <div class="card border-0 shadow-lg mx-auto" style="max-width: 600px;">
+          <div class="card-body text-center">
+            <h5 class="card-title mb-3">{{ __('home.result_title') }}</h5>
+            <div class="d-flex justify-content-center align-items-center">
+              <a href="#" id="shortUrl" target="_blank" class="h4 mb-0 text-success text-decoration-none"></a>
+              <button id="copyBtn"
+                      class="btn btn-outline-secondary ms-2"
+                      title="{{ __('home.copy') }}">
+                <i class="bi bi-clipboard"></i>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
   </div>
 </section>
 
