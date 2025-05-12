@@ -24,7 +24,7 @@ class HomeController extends Controller
             'expires_at' => 'nullable|date|after:now',
         ]);
 
-        if ($this->isSafeUrl($data['original_url'])) {
+        if (!$this->isSafeUrl($data['original_url'])) {
             return response()->json([
                 'message' => __('home.error_unsafe_url')
             ], 422);

@@ -1,14 +1,27 @@
 import $ from "jquery";
+import "bootstrap/js/src/alert";
+
+const showAlert = (type, message) => {
+    const alertHtml = `
+    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+      ${message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>`;
+    $("#shortenAlert").html(alertHtml);
+};
 
 $("#shorten-form").on("submit", function (e) {
     e.preventDefault();
-    const $btn = $(this).find("button[type=submit]").prop("disabled", true);
+    const $form = $(this);
+    const $btn = $form.find("button[type=submit]").prop("disabled", true);
 
     $("#originalUrl").removeClass("is-invalid");
-    $("#shorten-form .invalid-feedback").remove();
+    $form.find(".invalid-feedback").remove();
+    $("#shortenAlert").empty();
+    $("#shortenedResult").addClass("d-none");
 
     $.ajax({
-        url: $(this).attr("action"),
+        url: $form.attr("action"),
         method: "POST",
         data: {
             original_url: $("#originalUrl").val(),
@@ -18,15 +31,17 @@ $("#shorten-form").on("submit", function (e) {
         .done((data) => {
             $("#shortenedResult").removeClass("d-none");
             $("#shortUrl").attr("href", data.short_url).text(data.short_url);
+            showAlert("success", "Link has been successfully shortened!");
         })
         .fail((err) => {
             const msg =
                 err.responseJSON?.errors?.original_url?.[0] ||
                 err.responseJSON?.message ||
-                "Error";
+                "Something went wrong, please try again.";
             $("#originalUrl")
                 .addClass("is-invalid")
                 .after(`<div class="invalid-feedback">${msg}</div>`);
+            showAlert("danger", msg);
         })
         .always(() => $btn.prop("disabled", false));
 });
@@ -38,9 +53,9 @@ $(document).on("click", "#copyBtn", function () {
     navigator.clipboard
         .writeText(url)
         .then(() => {
-            alert("Скопійовано в буфер обміну");
+            showAlert("info", "Copied to clipboard");
         })
         .catch(() => {
-            alert("Не вдалося скопіювати");
+            showAlert("warning", "Failed to copy to clipboard");
         });
 });

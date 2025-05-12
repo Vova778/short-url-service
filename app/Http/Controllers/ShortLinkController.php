@@ -18,10 +18,16 @@ class ShortLinkController extends Controller
     public function show(Link $link)
     {
         $this->authorize('view', $link);
+
         $clicks = $link->clicks()->latest('clicked_at')->get();
 
-        return view('links.show', compact('link', 'clicks'));
+        $totalClicks = $clicks->count();
+
+        $todayClicks = $clicks->where('clicked_at', '>=', now()->startOfDay())->count();
+
+        return view('links.show', compact('link', 'clicks', 'totalClicks', 'todayClicks'));
     }
+
 
     public function edit(Link $link)
     {
