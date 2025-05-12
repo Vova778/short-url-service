@@ -26,6 +26,12 @@ class Link extends Model
         return $this->hasMany(Click::class);
     }
 
+    public function status()
+{
+    return $this->belongsTo(Status::class);
+}
+
+
     /**
      *
      * @param  string|null  $custom
