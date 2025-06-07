@@ -9,7 +9,7 @@
     <div class="alert alert-success">{{ session('status') }}</div>
   @endif
 
-  {{-- Блок с короткой и оригинальной ссылкой --}}
+  {{-- Посилання --}}
   <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
       <h5 class="card-title text-secondary fw-bold">{{ __('messages.links.short_url') }}</h5>
@@ -58,6 +58,20 @@
     </div>
   </div>
 
+  <div class="row mt-4">
+    <div class="col-12 mb-4">
+      <div class="card shadow-sm border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ __('messages.stats.by_date') }}</span>
+          <button id="refresh-dates" class="btn btn-sm btn-outline-secondary">{{ __('messages.refresh') }}</button>
+        </div>
+        <div class="card-body">
+          <canvas id="datesChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
   {{-- Диаграммы --}}
   <h3 class="mt-5 mb-4">{{ __('messages.links.statistics') }}</h3>
   <div class="row gx-4 gy-4">
@@ -98,7 +112,7 @@
       </div>
     </div>
     {{-- Referrers --}}
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
       <div class="card shadow-sm border-0">
         <div class="card-header d-flex justify-content-between align-items-center">
           <span>{{ __('messages.stats.referrers') }}</span>
@@ -108,7 +122,7 @@
           <canvas id="referrersChart" style="max-height:300px;"></canvas>
         </div>
       </div>
-    </div>
+    </div> --}}
   </div>
 
   {{-- История кликов --}}
@@ -145,28 +159,22 @@
 @endsection
 
 @push('scripts')
-  {{-- Подготавливаем JS-массив кликов --}}
   @php
-    $clicksData = $clicks->map(function($c) {
-        return [
-            'clicked_at' => $c->clicked_at->format('Y-m-d H:i:s'),
-            'ip_address' => $c->ip_address,
-            'referrer'   => $c->referrer,
-            'browser'    => $c->browser,
-            'device'     => $c->device,
-            'country'    => $c->country,
-            'user_agent' => $c->user_agent,
-        ];
-    })->toArray();
+    $clicksData = $clicks->map(fn($c) => [
+      'clicked_at' => $c->clicked_at->format('Y-m-d H:i:s'),
+      'ip_address' => $c->ip_address,
+      'referrer'   => $c->referrer,
+      'browser'    => $c->browser,
+      'device'     => $c->device,
+      'country'    => $c->country,
+      'user_agent' => $c->user_agent,
+    ])->toArray();
   @endphp
 
   <script>
-    // Логируем, чтобы убедиться, что данные доступны
-    console.log('Inline: clicksData length =', {{ count($clicksData) }});
+    // Доступно в show.js
     window.linkClicks = @json($clicksData);
-    console.log('Inline: window.linkClicks =', window.linkClicks);
   </script>
 
-  {{-- Подключаем главный скрипт --}}
   @vite('resources/js/show.js')
 @endpush

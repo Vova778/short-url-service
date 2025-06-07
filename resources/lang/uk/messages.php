@@ -51,6 +51,13 @@ return [
         'clicks_history' => 'Історія кліків',
         'no_clicks' => 'Ніхто ще не переходив за цим посиланням',
         'update' => 'Оновити',
+        'statistics'     => 'Статистика переходів',
+        'total_clicks'   => 'Всього переходів',
+        'today_clicks'   => 'Переходів за сьогодні',
+        'protected'            => 'Посилання захищено паролем',
+        'enter_password'       => 'Будь ласка, введіть пароль для продовження',
+        'password-needed'             => 'Пароль',
+        'password_placeholder' => 'Введіть пароль',
     ],
     'clicks' => [
         'at' => 'Час',
@@ -59,5 +66,19 @@ return [
     ],
     'back' => 'Назад',
     'cancel' => 'Скасувати',
-    'bulk' => 'Bilk Shortnening'
+    'bulk' => 'Масове скорочення',
+
+    'buttons' => [
+        'submit' => 'Надіслати',
+    ],
+
+    'stats' => [
+        'countries'      => 'Країни',
+        'browsers'       => 'Браузери',
+        'devices'        => 'Пристрої',
+        'referrers'      => 'Джерела',
+    ],
+
+    'refresh'           => 'Оновити',
+
 ];

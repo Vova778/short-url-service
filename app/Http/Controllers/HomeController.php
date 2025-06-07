@@ -6,6 +6,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Http\Request;
 use App\Models\Link;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
 class HomeController extends Controller
@@ -35,7 +36,7 @@ class HomeController extends Controller
         $link = Link::create([
             'original_url' => $data['original_url'],
             'short_code' => $code,
-            'password' => $data['password'] ?? null,
+            'password' => isset($data['password']) ? Hash::make($data['password']) : null,
             'expires_at' => $data['expires_at'] ?? null,
             'user_id' => optional($request->user())->id,
         ]);

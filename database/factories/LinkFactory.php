@@ -19,10 +19,10 @@ class LinkFactory extends Factory
             'short_code' => strtoupper(Str::random(6)),
             //'user_id' => User::factory()->optional()->create()->id,
             'user_id' => User::first()->id,
-            'password' => $this->faker->boolean(10)
-                ? Hash::make($this->faker->password(6, 12))
+            'password' => $this->faker->boolean(100)
+                ? Hash::make('1111')
                 : null,
-            'expires_at' => $this->faker->boolean(10)
+            'expires_at' => $this->faker->boolean(100)
                 ? $this->faker->dateTimeBetween('now', '+30 days')
                 : null,
             'created_at' => now(),

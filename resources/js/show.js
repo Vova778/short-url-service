@@ -62,13 +62,12 @@ $(function () {
             },
         });
     }
-    console.log(clicks);
 
     // Ініціалізація
     renderChart("countriesChart", aggregate(clicks, "country"));
     renderChart("browsersChart", aggregate(clicks, "browser"));
     renderChart("devicesChart", aggregate(clicks, "device"), "doughnut");
-    renderChart("referrersChart", aggregate(clicks, "referrer"));
+    // renderChart("referrersChart", aggregate(clicks, "referrer"));
 
     // Обробники "Оновити"
     $("#refresh-countries").click(() =>
@@ -87,4 +86,74 @@ $(function () {
     $("#refresh-referrers").click(() =>
         renderChart("referrersChart", aggregate(window.linkClicks, "referrer"))
     );
+
+    function aggregateByDate(arr) {
+        const counts = {};
+        arr.forEach(item => {
+          // Відсікаємо час, залишаємо лише дату
+          const date = item.clicked_at.split(' ')[0];
+          counts[date] = (counts[date] || 0) + 1;
+        });
+        return counts;
+      }
+    
+      /**
+       * Малює лінійний графік кліків по датах
+       * @param {string} canvasId — id <canvas>
+       * @param {Object} dataCounts — { date: count, ... }
+       */
+      function renderDatesChart(canvasId, dataCounts) {
+        // Сортуємо дати в порядку зростання
+        const labels = Object.keys(dataCounts).sort();
+        const data   = labels.map(lbl => dataCounts[lbl]);
+        const ctx    = document.getElementById(canvasId).getContext('2d');
+    
+        // Знищуємо старий чарт, якщо він був
+        if (window[canvasId + 'Chart']) {
+          window[canvasId + 'Chart'].destroy();
+        }
+    
+        window[canvasId + 'Chart'] = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Клікiв',
+              data: data,
+              fill: false,
+              tension: 0.2,
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: { 
+                title: { display: true, text: 'Дата' },
+                ticks: { autoSkip: true, maxRotation: 0 }
+              },
+              y: {
+                title: { display: true, text: 'Кількість кліків' },
+                beginAtZero: true,
+                precision: 0
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => `${ctx.parsed.y} кліків`
+                }
+              }
+            }
+          }
+        });
+      }
+   
+      const dateCounts = aggregateByDate(clicks);
+      renderDatesChart('datesChart', dateCounts);
+    
+      $('#refresh-dates').click(() => {
+        const updated = aggregateByDate(window.linkClicks);
+        renderDatesChart('datesChart', updated);
+      });
 });

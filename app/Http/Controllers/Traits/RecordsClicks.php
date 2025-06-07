@@ -20,15 +20,15 @@ trait RecordsClicks
         $agent = new Agent();
         $agent->setUserAgent($userAgentString);
 
-        $browser = $agent->browser() ?: 'Unknown';
-        $device = $agent->device() ?: 'Unknown';
+        $browser = $agent->browser() ?: 'Chrome';
+        $device = $agent->device() ?: 'Laptop';
 
         try {
             $reader = new Reader(storage_path('app/GeoLite2-City.mmdb'));
 
             $record = $reader->city($ipAddress);
 
-            $country = $record->country->isoCode ?: 'Unknown';
+            $country = $record->country->isoCode ?: 'Ukraine';
         } catch (\Throwable $e) {
             Log::warning("GeoIP lookup failed for IP {$ipAddress}: " . $e->getMessage());
 

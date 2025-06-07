@@ -52,6 +52,13 @@ return [
         'clicks_history' => 'Click History',
         'no_clicks' => 'No clicks recorded yet',
         'update' => 'Update',
+        'statistics'     => 'Statistics',
+        'total_clicks'   => 'Total clicks',
+        'today_clicks'   => 'Clicks today',
+       'protected'            => 'This link is password protected',
+        'enter_password'       => 'Please enter the password to continue',
+        'password-needed'             => 'Password',
+        'password_placeholder' => 'Enter password',
     ],
 
     'clicks' => [
@@ -62,5 +69,19 @@ return [
     'back' => 'Back',
     'cancel' => 'Cancel',
     'submit' => 'Submit',
-    'bulk' => 'Bilk Shortnening'
+    'bulk' => 'Bulk Shortnening',
+
+    'buttons' => [
+        'submit' => 'Submit',
+    ],
+
+    'stats' => [
+        'countries'      => 'Countries',
+        'browsers'       => 'Browsers',
+        'devices'        => 'Devices',
+        'referrers'      => 'Referrers',
+    ],
+
+    'refresh'           => 'Refresh',
+
 ];

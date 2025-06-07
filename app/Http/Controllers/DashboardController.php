@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $links = $user->links()
             ->withCount('clicks')
             ->latest()
-            ->paginate(10);
+            ->paginate(100);
 
         return view('dashboard.index', compact(
             'totalLinks',
