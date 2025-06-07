@@ -31,7 +31,7 @@ $("#shorten-form").on("submit", function (e) {
         .done((data) => {
             $("#shortenedResult").removeClass("d-none");
             $("#shortUrl").attr("href", data.short_url).text(data.short_url);
-            showAlert("success", "Link has been successfully shortened!");
+            // showAlert("success", "Link has been successfully shortened!");
         })
         .fail((err) => {
             const msg =
@@ -53,7 +53,7 @@ $(document).on("click", "#copyBtn", function () {
     navigator.clipboard
         .writeText(url)
         .then(() => {
-            showAlert("info", "Copied to clipboard");
+            // showAlert("info", "Copied to clipboard");
         })
         .catch(() => {
             showAlert("warning", "Failed to copy to clipboard");

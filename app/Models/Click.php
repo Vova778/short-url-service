@@ -11,7 +11,14 @@ class Click extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'link_id','clicked_at','referrer','ip_address'
+        'link_id',
+        'clicked_at',
+        'referrer',
+        'ip_address',
+        'browser',
+        'device',
+        'country',
+        'user_agent',
     ];
 
     protected $casts = [

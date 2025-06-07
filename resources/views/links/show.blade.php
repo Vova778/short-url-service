@@ -1,3 +1,4 @@
+{{-- resources/views/links/show.blade.php --}}
 @extends('layouts.app')
 
 @section('content')
@@ -8,6 +9,7 @@
     <div class="alert alert-success">{{ session('status') }}</div>
   @endif
 
+  {{-- Блок с короткой и оригинальной ссылкой --}}
   <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
       <h5 class="card-title text-secondary fw-bold">{{ __('messages.links.short_url') }}</h5>
@@ -38,23 +40,78 @@
     </div>
   </div>
 
+  {{-- Сводная статистика --}}
   <div class="mb-4">
     <div class="row g-3">
       <div class="col-md-6">
         <div class="border-start border-4 border-primary ps-3">
-          <h6 class="text-muted mb-1"> Всього переходів</h6>
+          <h6 class="text-muted mb-1">{{ __('messages.links.total_clicks') }}</h6>
           <h4 class="fw-bold">{{ $totalClicks }}</h4>
         </div>
       </div>
       <div class="col-md-6">
         <div class="border-start border-4 border-info ps-3">
-          <h6 class="text-muted mb-1">Переходів за сьогодні</h6>
+          <h6 class="text-muted mb-1">{{ __('messages.links.today_clicks') }}</h6>
           <h4 class="fw-bold">{{ $todayClicks }}</h4>
         </div>
       </div>
     </div>
   </div>
 
+  {{-- Диаграммы --}}
+  <h3 class="mt-5 mb-4">{{ __('messages.links.statistics') }}</h3>
+  <div class="row gx-4 gy-4">
+    {{-- Країни --}}
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ __('messages.stats.countries') }}</span>
+          <button id="refresh-countries" class="btn btn-sm btn-outline-secondary">{{ __('messages.refresh') }}</button>
+        </div>
+        <div class="card-body">
+          <canvas id="countriesChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+    {{-- Браузери --}}
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ __('messages.stats.browsers') }}</span>
+          <button id="refresh-browsers" class="btn btn-sm btn-outline-secondary">{{ __('messages.refresh') }}</button>
+        </div>
+        <div class="card-body">
+          <canvas id="browsersChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+    {{-- Пристрої --}}
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ __('messages.stats.devices') }}</span>
+          <button id="refresh-devices" class="btn btn-sm btn-outline-secondary">{{ __('messages.refresh') }}</button>
+        </div>
+        <div class="card-body">
+          <canvas id="devicesChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+    {{-- Referrers --}}
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>{{ __('messages.stats.referrers') }}</span>
+          <button id="refresh-referrers" class="btn btn-sm btn-outline-secondary">{{ __('messages.refresh') }}</button>
+        </div>
+        <div class="card-body">
+          <canvas id="referrersChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{-- История кликов --}}
   <h3 class="mt-5">{{ __('messages.links.clicks_history') }}</h3>
   @if($clicks->isEmpty())
     <p class="text-muted">{{ __('messages.links.no_clicks') }}</p>
@@ -70,11 +127,11 @@
         </thead>
         <tbody>
           @foreach($clicks as $c)
-          <tr>
-            <td>{{ $c->clicked_at->format('Y-m-d H:i') }}</td>
-            <td>{{ $c->ip_address }}</td>
-            <td>{{ $c->referrer ?? '—' }}</td>
-          </tr>
+            <tr>
+              <td>{{ $c->clicked_at->format('Y-m-d H:i') }}</td>
+              <td>{{ $c->ip_address }}</td>
+              <td>{{ $c->referrer ?? '—' }}</td>
+            </tr>
           @endforeach
         </tbody>
       </table>
@@ -86,3 +143,30 @@
   </a>
 </div>
 @endsection
+
+@push('scripts')
+  {{-- Подготавливаем JS-массив кликов --}}
+  @php
+    $clicksData = $clicks->map(function($c) {
+        return [
+            'clicked_at' => $c->clicked_at->format('Y-m-d H:i:s'),
+            'ip_address' => $c->ip_address,
+            'referrer'   => $c->referrer,
+            'browser'    => $c->browser,
+            'device'     => $c->device,
+            'country'    => $c->country,
+            'user_agent' => $c->user_agent,
+        ];
+    })->toArray();
+  @endphp
+
+  <script>
+    // Логируем, чтобы убедиться, что данные доступны
+    console.log('Inline: clicksData length =', {{ count($clicksData) }});
+    window.linkClicks = @json($clicksData);
+    console.log('Inline: window.linkClicks =', window.linkClicks);
+  </script>
+
+  {{-- Подключаем главный скрипт --}}
+  @vite('resources/js/show.js')
+@endpush

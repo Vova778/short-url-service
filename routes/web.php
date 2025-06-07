@@ -5,9 +5,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LinkBulkController;
 use App\Http\Controllers\ShortLinkController;
 use App\Http\Controllers\LinkRedirectController;
+use App\Http\Controllers\StatsController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect;
 use Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter;
+
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
@@ -35,4 +37,12 @@ Route::group([
         ->name('links.unlock');
     Route::get('/{code}', [LinkRedirectController::class, 'redirect'])
         ->name('links.redirect');
+
+    Route::get('/stats/countries', [StatsController::class, 'countries']);
+    Route::get('/stats/browsers', [StatsController::class, 'browsers']);
+    Route::get('/stats/devices', [StatsController::class, 'devices']);
+    Route::get('/stats/referrers', [StatsController::class, 'referrers']);
 });
+
+Route::get('/{code}', [LinkRedirectController::class, 'redirect'])
+    ->name('links.redirect');
